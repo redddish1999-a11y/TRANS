@@ -1,10 +1,11 @@
 // --- 定义增强版配置 ---
 const peerOptions = {
+  // 增加 debug 等级到 3，这样你可以在手机浏览器（如果能看控制台）看到具体卡在哪
+  debug: 3, 
   config: {
     iceServers: [
       { urls: 'stun:stun.l.google.com:19302' },
       { urls: 'stun:stun1.l.google.com:19302' },
-      // 这里的免费 TURN 服务器由 OpenRelay 提供，专门用于解决 5G 无法穿透的问题
       {
         urls: 'turn:openrelay.metered.ca:443',
         username: 'openrelayproject',
@@ -16,9 +17,9 @@ const peerOptions = {
         credential: 'openrelayproject'
       }
     ],
-    sdpSemantics: 'unified-plan',
-  },
-  debug: 2
+    // 强制使用中继模式进行测试（如果这个能通，说明必须用 TURN）
+    // iceTransportPolicy: 'relay' 
+  }
 };
 
 /**
