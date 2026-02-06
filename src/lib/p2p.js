@@ -4,15 +4,21 @@ const peerOptions = {
     iceServers: [
       { urls: 'stun:stun.l.google.com:19302' },
       { urls: 'stun:stun1.l.google.com:19302' },
-      { urls: 'stun:stun2.l.google.com:19302' },
-      { urls: 'stun:stun3.l.google.com:19302' },
-      { urls: 'stun:stun4.l.google.com:19302' },
-      { urls: 'stun:global.stun.twilio.com:3478' }, // 备用 STUN
+      // 这里的免费 TURN 服务器由 OpenRelay 提供，专门用于解决 5G 无法穿透的问题
+      {
+        urls: 'turn:openrelay.metered.ca:443',
+        username: 'openrelayproject',
+        credential: 'openrelayproject'
+      },
+      {
+        urls: 'turn:openrelay.metered.ca:80',
+        username: 'openrelayproject',
+        credential: 'openrelayproject'
+      }
     ],
-    // 强制使用 Unified Plan 提高移动端 WebRTC 兼容性
     sdpSemantics: 'unified-plan',
   },
-  debug: 2 // 开启调试日志，方便报错时排查
+  debug: 2
 };
 
 /**
